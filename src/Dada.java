@@ -12,7 +12,8 @@ import java.awt.event.ActionListener;
 public class Dada extends Applet {
 
     List list;
-    String result = "";
+    String result = "Select something by double-clicking";
+    int score = 0;
 
 
     public void init () {
@@ -30,8 +31,13 @@ public class Dada extends Applet {
         list.add("Steel");
         list.add("Green");
         list.add("Forty Five");
+        list.add("Jerky");
+        list.add("Guanciale");
+        list.add("Pancetta");
+        list.add("Speck");
+        list.add("Anti-Bacon");
 
-        add(list,BorderLayout.SOUTH);
+        add(list, BorderLayout.SOUTH);
 
         list.addActionListener(new ActionListener() {
             @Override
@@ -47,10 +53,15 @@ public class Dada extends Applet {
 
     public String bacon (String a) {
 
-        if(a.contains("Bacon")) {
+        if(a.equals("Bacon") || a.contains("Guanciale") || a.contains("Jerky") || a.contains("Pancetta")) {
             result = a + " is bacon! Delicious!";
+            score++;
+        } else if (a.contains("Anti-Bacon")) {
+            result = a + " is ANTI BACON. WHAT THE FUUUUUUUUUUU!";
+            score = -9001;
         } else {
             result = a + " isn't bacon :[";
+            score--;
         }
 
         return result;
@@ -61,6 +72,7 @@ public class Dada extends Applet {
         g.setFont(font);
 
         g.drawString(result, 5, 20);
+        g.drawString("Score: " + String.valueOf(score), 5, 50);
 
         Image image = getImage(getDocumentBase(), "bacon.jpg");
         g.drawImage(image, 10, 10, this);
